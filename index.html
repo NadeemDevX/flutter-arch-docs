@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter Architecture Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">
+                <span class="material-icons">menu</span>
+            </button>
+            <div class="logo">
+                <span class="material-icons logo-icon">architecture</span>
+                <span class="logo-text">Flutter Docs</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="language-toggle">
+                <button class="toggle-btn" id="langToggle">
+                    <span class="material-icons">translate</span>
+                    <span class="lang-text" id="langText">English</span>
+                </button>
+            </div>
+            <div class="theme-toggle">
+                <button class="toggle-btn" id="themeToggle">
+                    <span class="material-icons" id="themeIcon">dark_mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Getting Started</div>
+                    <a href="#introduction" class="nav-item active">Introduction</a>
+                    <a href="#why-structure" class="nav-item">Overview</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Foundation</div>
+                    <a href="#melos" class="nav-item">Melos</a>
+                    <a href="#project-structure" class="nav-item">Project Structure</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">UI Layer</div>
+                    <a href="#theme" class="nav-item">Theme</a>
+                    <a href="#ui-kit" class="nav-item">UI Kit</a>
+                    <a href="#screen-widgets" class="nav-item">Screen & Widgets</a>
+                    <a href="#widgetbook" class="nav-item">WidgetBook</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">State & Logic</div>
+                    <a href="#uistate" class="nav-item">UIState</a>
+                    <a href="#actions" class="nav-item">Actions</a>
+                    <a href="#controller" class="nav-item">Controller</a>
+                    <a href="#bindings" class="nav-item">Bindings</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">App Level</div>
+                    <a href="#shared" class="nav-item">Shared Package</a>
+                    <a href="#navigation" class="nav-item">Navigation</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Data Layer</div>
+                    <a href="#models" class="nav-item">Models, DTOs, Mapper</a>
+                    <a href="#repository" class="nav-item">Repository</a>
+                    <a href="#api" class="nav-item">API Integration</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Advanced</div>
+                    <a href="#github" class="nav-item">GitHub Strategy</a>
+                    <a href="#complete-flow" class="nav-item">Complete Flow</a>
+                    <a href="#analytics" class="nav-item">Analytics</a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Introduction -->
+            <section id="introduction" class="content-section">
+                <h1 class="section-title">Introduction</h1>
+
+                <div class="content-block">
+                    <p class="lang-en">This documentation covers the <strong>complete architecture</strong> of our Flutter project. Whether you're a new team member or need a refresher, this guide will help you understand how everything works together — from folder structure to data flow.</p>
+                    <p class="lang-ur" style="display:none;">Ye documentation hamari Flutter project ki <strong>complete architecture</strong> cover karti hai. Chahe aap naye team member ho ya refresher chahiye, ye guide aapko samjhayegi ke sab kuch kaise milke kaam karta hai — folder structure se le kar data flow tak.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Imagine you're building a <strong>Food Delivery App</strong> that needs 3 separate apps — Customer App, Business App, and Rider App. All 3 need common features like Login, Theme, Widgets, and API Service. Instead of writing same code 3 times, you create shared packages and reuse them across all apps. That's exactly what this architecture does.</p>
+                    <p class="lang-ur" style="display:none;">Socho aap ek <strong>Food Delivery App</strong> bana rahe ho jisme 3 alag apps chahiye — Customer App, Business App, aur Rider App. Teeno ko Login, Theme, Widgets, aur API Service chahiye. Same code 3 baar likhne ki jagah, aap shared packages banaoge aur sab apps mein reuse karoge. Yahi ye architecture karti hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">We use a <strong>monorepo architecture</strong> with Melos, where multiple apps share common packages. This keeps our code organized, reusable, and easy to maintain. Each feature is isolated in its own package with a clear structure — making it easy to develop, test, and debug independently.</p>
+                    <p class="lang-ur" style="display:none;">Hum <strong>monorepo architecture</strong> use karte hain Melos ke saath, jahan multiple apps common packages share karti hain. Isse code organized, reusable, aur maintain karna easy rehta hai. Har feature apne package mein isolated hai clear structure ke saath — develop, test, aur debug karna independently easy hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">This guide is divided into layers. Each layer has a specific responsibility. You'll learn what each layer does, how they connect, and why we structured it this way. By the end, you'll have a complete understanding of the architecture and can start contributing to the project confidently.</p>
+                    <p class="lang-ur" style="display:none;">Ye guide layers mein divided hai. Har layer ki apni specific responsibility hai. Aap seekhenge ke har layer kya karti hai, kaise connect hoti hain, aur humne aise structure kyun kiya. End tak, aapko architecture ki complete understanding ho jayegi aur aap confidently project mein contribute kar sakte ho.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">lightbulb</span>
+                        <span class="lang-en">What You'll Learn</span>
+                        <span class="lang-ur" style="display:none;">Aap Kya Seekhenge</span>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li class="lang-en"><strong>Foundation</strong> — Melos, Project Structure, Packages</li>
+                            <li class="lang-ur" style="display:none;"><strong>Foundation</strong> — Melos, Project Structure, Packages</li>
+                            <li class="lang-en"><strong>UI Layer</strong> — Theme, UI Kit, Screens, Widgets, WidgetBook</li>
+                            <li class="lang-ur" style="display:none;"><strong>UI Layer</strong> — Theme, UI Kit, Screens, Widgets, WidgetBook</li>
+                            <li class="lang-en"><strong>State & Logic</strong> — UIState, Actions, Controller, Bindings</li>
+                            <li class="lang-ur" style="display:none;"><strong>State & Logic</strong> — UIState, Actions, Controller, Bindings</li>
+                            <li class="lang-en"><strong>Data Layer</strong> — Models, DTOs, Mapper, Repository, API</li>
+                            <li class="lang-ur" style="display:none;"><strong>Data Layer</strong> — Models, DTOs, Mapper, Repository, API</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Overview -->
+            <section id="why-structure" class="content-section">
+                <h1 class="section-title">Overview</h1>
+
+                <div class="content-block">
+                    <p class="lang-en">This section gives you a high-level view of our architecture. Before diving into individual concepts, it's important to understand the overall structure and why we chose this approach.</p>
+                    <p class="lang-ur" style="display:none;">Ye section aapko hamari architecture ka high-level view deta hai. Individual concepts mein jaane se pehle, overall structure aur humne ye approach kyun chuna ye samajhna zaroori hai.</p>
+                </div>
+
+                <h2 class="lang-en">What Problem Are We Solving?</h2>
+                <h2 class="lang-ur" style="display:none;">Hum Kya Problem Solve Kar Rahe Hain?</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">As projects grow, code becomes harder to manage. Files get scattered, team members step on each other's work, and making changes becomes risky. A small fix in one place can break something else. Without clear boundaries, the codebase turns into a mess that nobody wants to touch.</p>
+                    <p class="lang-ur" style="display:none;">Jaise jaise project barhta hai, code manage karna mushkil ho jata hai. Files bikhar jaati hain, team members ek dusre ke kaam mein interfere karte hain, aur changes karna risky ho jata hai. Ek jagah chhoti fix doosri jagah kuch tor sakti hai. Clear boundaries ke bina, codebase ek aisa mess ban jata hai jise koi touch nahi karna chahta.</p>
+                </div>
+
+                <div class="overview-image">
+                    <img src="assets/structure.png" alt="Without Structure vs With Structure comparison">
+                </div>
+
+                <h2 class="lang-en">Our Solution</h2>
+                <h2 class="lang-ur" style="display:none;">Hamara Solution</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">We solve this by splitting the app into <strong>small, independent packages</strong>. Each package has one responsibility and can be developed, tested, and maintained separately. Packages communicate through well-defined interfaces, so changes in one package don't break others.</p>
+                    <p class="lang-ur" style="display:none;">Hum isko solve karte hain app ko <strong>chhote, independent packages</strong> mein divide karke. Har package ki ek responsibility hai aur separately develop, test, aur maintain ho sakta hai. Packages well-defined interfaces ke through communicate karte hain, to ek package mein changes doosron ko break nahi karte.</p>
+                </div>
+
+                <h2 class="lang-en">Project Structure</h2>
+                <h2 class="lang-ur" style="display:none;">Project Structure</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Below you can see the difference between a normal Flutter project and our package-based structure. In our approach, <strong>apps/</strong> contains the final apps, and <strong>packages/</strong> contains all the reusable code.</p>
+                    <p class="lang-ur" style="display:none;">Neeche aap normal Flutter project aur hamari package-based structure ka farq dekh sakte ho. Hamare approach mein, <strong>apps/</strong> mein final apps hain, aur <strong>packages/</strong> mein sab reusable code hai.</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3 class="lang-en">Normal Structure</h3>
+                        <h3 class="lang-ur" style="display:none;">Normal Structure</h3>
+<pre><code>app/
+├── lib/
+│   ├── screens/
+│   ├── widgets/
+│   ├── controllers/
+│   ├── models/
+│   └── services/
+└── pubspec.yaml</code></pre>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="lang-en">Our Structure</h3>
+                        <h3 class="lang-ur" style="display:none;">Hamara Structure</h3>
+<pre><code>project/
+├── apps/
+│   └── customer_app/
+├── packages/
+│   ├── core/
+│   ├── theme/
+│   ├── ui_kit/
+│   └── features/
+│       ├── login/
+│       ├── home/
+│       ├── cart/
+│       └── profile/
+└── melos.yaml</code></pre>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Feature Package Structure (e.g. login/)</div>
+<pre><code>login/
+└── lib/
+    └── src/
+        ├── models/          ← UIState, Actions
+        ├── controllers/     ← LoginController
+        ├── repositories/    ← Mock & API
+        ├── bindings/        ← LoginBinding
+        ├── screens/         ← LoginScreen
+        └── widgets/         ← LoginLayout</code></pre>
+                </div>
+
+                <h2 class="lang-en">How Melos Manages Packages</h2>
+                <h2 class="lang-ur" style="display:none;">Melos Packages Kaise Manage Karta Hai</h2>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="lang-en">Without Melos</th>
+                                <th class="lang-ur" style="display:none;">Bina Melos</th>
+                                <th class="lang-en">With Melos</th>
+                                <th class="lang-ur" style="display:none;">Melos Ke Saath</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="lang-en">Go to each package folder, run <code>flutter pub get</code></td>
+                                <td class="lang-ur" style="display:none;">Har package folder mein jao, <code>flutter pub get</code> run karo</td>
+                                <td><code>melos bootstrap</code></td>
+                            </tr>
+                            <tr>
+                                <td class="lang-en">Manually link local packages in pubspec.yaml</td>
+                                <td class="lang-ur" style="display:none;">Manually pubspec.yaml mein local packages link karo</td>
+                                <td class="lang-en">Auto-linked by Melos</td>
+                                <td class="lang-ur" style="display:none;">Melos auto link karta hai</td>
+                            </tr>
+                            <tr>
+                                <td class="lang-en">Run tests in each package separately</td>
+                                <td class="lang-ur" style="display:none;">Har package mein alag se tests run karo</td>
+                                <td><code>melos run test</code></td>
+                            </tr>
+                            <tr>
+                                <td class="lang-en">Clean each package one by one</td>
+                                <td class="lang-ur" style="display:none;">Ek ek package clean karo</td>
+                                <td><code>melos clean</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Melos -->
+            <section id="melos" class="content-section">
+                <h1 class="section-title">Melos</h1>
+
+                <div class="overview-image">
+                    <img src="assets/melos.png" alt="Without Melos vs With Melos comparison">
+                </div>
+
+                <h2 class="lang-en">What is a Package?</h2>
+                <h2 class="lang-ur" style="display:none;">Package Kya Hai?</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">A package is a <strong>self-contained folder with its own code and dependencies</strong>. Each package has its own <code>pubspec.yaml</code> and can be developed independently.</p>
+                    <p class="lang-ur" style="display:none;">Package ek <strong>independent folder hai jiska apna code aur dependencies</strong> hoti hain. Har package ka apna <code>pubspec.yaml</code> hota hai aur independently develop ho sakta hai.</p>
+                </div>
+
+                <h2 class="lang-en">What is a Monorepo?</h2>
+                <h2 class="lang-ur" style="display:none;">Monorepo Kya Hai?</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Monorepo means <strong>multiple packages in one repository</strong>. All apps and packages stay in one project, making it easy to share code between them.</p>
+                    <p class="lang-ur" style="display:none;">Monorepo matlab <strong>ek repository mein multiple packages</strong>. Sab apps aur packages ek project mein, code share karna easy.</p>
+                </div>
+
+                <h2 class="lang-en">What is Melos?</h2>
+                <h2 class="lang-ur" style="display:none;">Melos Kya Hai?</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Melos is a <strong>CLI tool for managing Dart/Flutter monorepos</strong>. It handles package linking, runs commands across all packages, and manages dependencies.</p>
+                    <p class="lang-ur" style="display:none;">Melos ek <strong>CLI tool hai jo Dart/Flutter monorepos manage</strong> karta hai. Package linking, commands run karna, aur dependencies manage karna - sab Melos karta hai.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Our Project Structure</div>
+<pre><code>cravo_workspace/
+├── apps/
+│   ├── customer_app/
+│   ├── business_app/
+│   └── rider_app/
+│
+├── packages/
+│   ├── core/
+│   ├── app_theme/
+│   ├── ui_kit/
+│   ├── api_service/
+│   ├── auth/
+│   ├── customer_features/
+│   ├── business_features/
+│   └── rider_features/
+│
+└── melos.yaml</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="lang-en">Our Melos Commands</span>
+                        <span class="lang-ur" style="display:none;">Hamare Melos Commands</span>
+                    </div>
+<pre><code>melos bootstrap      → Setup all packages
+melos clean:all      → Clean all packages
+melos run:customer   → Run Customer App
+melos run:business   → Run Business App
+melos run:rider      → Run Rider App
+melos run:widgetbook → Run Widgetbook
+melos gen            → Generate code (flutter_gen)
+melos analyze        → Analyze all packages</code></pre>
+                </div>
+            </section>
+
+            <!-- Project Structure -->
+            <section id="project-structure" class="content-section">
+                <h1 class="section-title">Project Structure</h1>
+
+                <div class="content-block">
+                    <p class="lang-en">There are two big sections: <strong>Apps</strong> and <strong>Packages</strong>. Apps are the final products. Packages are the building blocks.</p>
+                    <p class="lang-ur" style="display:none;">Do main sections hain: <strong>Apps</strong> aur <strong>Packages</strong>. Apps final products hain. Packages building blocks hain.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Complete Structure</div>
+<pre><code>Project/
+│
+├── apps/                     ← FINAL APPS
+│   ├── user_app/             ← User facing app
+│   ├── admin_app/            ← Admin panel
+│   └── staff_app/            ← Staff app
+│
+├── packages/                 ← BUILDING BLOCKS
+│   ├── features/             ← Feature packages
+│   │   ├── login/
+│   │   ├── home/
+│   │   ├── cart/
+│   │   └── profile/
+│   │
+│   ├── ui_kit/               ← Common widgets
+│   ├── theme/                ← Colors, fonts, sizes
+│   └── shared/               ← Common config, content
+│
+├── melos.yaml                ← Melos config
+└── pubspec.yaml              ← Root pubspec</code></pre>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Apps</th>
+                                <th>Packages</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="lang-en">The finished app people use</td>
+                                <td class="lang-en">The reusable pieces inside</td>
+                                <td class="lang-ur" style="display:none;">Final product jo user use karta hai</td>
+                                <td class="lang-ur" style="display:none;">Reusable code blocks</td>
+                            </tr>
+                            <tr>
+                                <td class="lang-en">Can run on a phone</td>
+                                <td class="lang-en">Can't run on their own</td>
+                                <td class="lang-ur" style="display:none;">Phone pe run hoti hai</td>
+                                <td class="lang-ur" style="display:none;">Akele run nahi hote</td>
+                            </tr>
+                            <tr>
+                                <td>user_app, admin_app</td>
+                                <td>login, ui_kit, theme</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Theme -->
+            <section id="theme" class="content-section">
+                <h1 class="section-title">Theme</h1>
+
+                <div class="overview-image">
+                    <img src="assets/theme.png" alt="Hardcoded Colors vs Using Theme comparison">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Theme is <strong>your app's complete visual configuration</strong>. We define everything once in <code>AppThemeConfig</code> and it automatically generates both Light and Dark themes.</p>
+                    <p class="lang-ur" style="display:none;">Theme <strong>app ki complete visual configuration</strong> hai. Hum sab kuch ek baar <code>AppThemeConfig</code> mein define karte hain aur ye Light aur Dark dono themes automatically generate karta hai.</p>
+                </div>
+
+                <h2 class="lang-en">How Theme Works</h2>
+                <h2 class="lang-ur" style="display:none;">Theme Kaise Kaam Karta Hai</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">We use two main classes: <code>AppThemeConfig</code> holds all settings, and <code>AppColors</code> defines light/dark color variations. Together they generate Flutter's <code>ThemeData</code>.</p>
+                    <p class="lang-ur" style="display:none;">Hum do main classes use karte hain: <code>AppThemeConfig</code> mein sab settings hain, aur <code>AppColors</code> light/dark colors define karta hai. Dono milke Flutter ka <code>ThemeData</code> generate karte hain.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Theme Package Structure</div>
+<pre><code>packages/
+└── app_theme/
+    └── lib/
+        └── src/
+            ├── app_theme_config.dart  ← All settings (colors, sizes, radius)
+            └── app_colors.dart        ← Light & Dark color definitions</code></pre>
+                </div>
+
+                <h2 class="lang-en">AppThemeConfig</h2>
+                <h2 class="lang-ur" style="display:none;">AppThemeConfig</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">This is the main configuration class. It contains everything needed to build a theme:</p>
+                    <p class="lang-ur" style="display:none;">Ye main configuration class hai. Theme banane ke liye sab kuch isme hai:</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <span class="material-icons">palette</span>
+                        </div>
+                        <h3>Colors</h3>
+                        <p class="lang-en">Primary, secondary, tertiary, status, text, borders</p>
+                        <p class="lang-ur" style="display:none;">Primary, secondary, tertiary, status, text, borders</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <span class="material-icons">rounded_corner</span>
+                        </div>
+                        <h3>Radius & Borders</h3>
+                        <p class="lang-en">Card radius, button radius, input borders</p>
+                        <p class="lang-ur" style="display:none;">Card radius, button radius, input borders</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <span class="material-icons">straighten</span>
+                        </div>
+                        <h3>Spacing & Sizes</h3>
+                        <p class="lang-en">Button heights, icon sizes, padding, gaps</p>
+                        <p class="lang-ur" style="display:none;">Button heights, icon sizes, padding, gaps</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <span class="material-icons">widgets</span>
+                        </div>
+                        <h3>Component Styles</h3>
+                        <p class="lang-en">AppBar, BottomNav, Cards, Dialogs, Inputs</p>
+                        <p class="lang-ur" style="display:none;">AppBar, BottomNav, Cards, Dialogs, Inputs</p>
+                    </div>
+                </div>
+
+                <h2 class="lang-en">AppColors</h2>
+                <h2 class="lang-ur" style="display:none;">AppColors</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Colors are defined once with <code>AppColors.light()</code> and <code>AppColors.dark()</code> factory methods. The app switches between them based on system/user preference.</p>
+                    <p class="lang-ur" style="display:none;">Colors ek baar define hote hain <code>AppColors.light()</code> aur <code>AppColors.dark()</code> factory methods ke saath. App system/user preference ke mutabiq switch karta hai.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Color Categories</div>
+<pre><code>AppColors:
+├── Primary Colors     → Brand colors (primary, secondary, tertiary)
+├── Status Colors      → Success, Error, Warning, Info
+├── Text Colors        → Primary, Secondary, Tertiary, Disabled
+├── Border Colors      → Default, Focus, Error states
+├── Background Colors  → Surface, Scaffold, Card
+└── Overlay Colors     → Modals, Bottom sheets</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">How to Switch Themes</span>
+                        <span class="lang-ur" style="display:none;">Theme Kaise Switch Karein</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en">Pass different <code>AppColors</code> to <code>AppThemeConfig</code>. Same config, different colors = different theme!</p>
+                        <p class="lang-ur" style="display:none;">Alag <code>AppColors</code> pass karo <code>AppThemeConfig</code> ko. Same config, different colors = different theme!</p>
+                    </div>
+                </div>
+
+                <div class="warning-card">
+                    <span class="material-icons">warning</span>
+                    <div>
+                        <strong class="lang-en">Golden Rule</strong>
+                        <strong class="lang-ur" style="display:none;">Golden Rule</strong>
+                        <p class="lang-en">Never hardcode colors, fonts, or sizes. Always use Theme values.</p>
+                        <p class="lang-ur" style="display:none;">Kabhi bhi colors, fonts, sizes hardcode mat karo. Hamesha Theme values use karo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UI Kit -->
+            <section id="ui-kit" class="content-section">
+                <h1 class="section-title">UI Kit</h1>
+
+                <div class="overview-image">
+                    <img src="assets/ui_kit.png" alt="Without UI Kit vs With UI Kit comparison">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">UI Kit is a <strong>shared package containing reusable widgets</strong> that are used across all apps. Instead of creating the same button or card in every feature, we build it once in UI Kit and import it wherever needed.</p>
+                    <p class="lang-ur" style="display:none;">UI Kit ek <strong>shared package hai jisme reusable widgets</strong> hain jo sab apps mein use hote hain. Har feature mein same button ya card banane ki jagah, hum ek baar UI Kit mein banate hain aur jahan zaroorat ho import karte hain.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">All UI Kit widgets use <code>app_theme</code> for styling. This means when you change the theme, all widgets automatically update their colors, sizes, and fonts. No manual changes needed.</p>
+                    <p class="lang-ur" style="display:none;">Sab UI Kit widgets <code>app_theme</code> use karte hain styling ke liye. Iska matlab jab theme change karo, sab widgets automatically apne colors, sizes, aur fonts update kar lete hain. Koi manual change nahi chahiye.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">We have widgets for everything — buttons, cards, inputs, dialogs, loading states, navigation components, and more. Each widget follows a consistent naming pattern starting with <code>App</code> prefix like <code>AppPrimaryButton</code>, <code>AppTextField</code>, <code>AppCard</code>.</p>
+                    <p class="lang-ur" style="display:none;">Hamare paas har cheez ke widgets hain — buttons, cards, inputs, dialogs, loading states, navigation components, aur bohot kuch. Har widget consistent naming follow karta hai <code>App</code> prefix ke saath jaise <code>AppPrimaryButton</code>, <code>AppTextField</code>, <code>AppCard</code>.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">UI Kit Structure</div>
+<pre><code>ui_kit/
+├── buttons/     → Primary, Secondary, Text, Icon buttons
+├── cards/       → ProductCard, ListTile, MenuTile
+├── inputs/      → TextField, SearchField, Dropdown
+├── feedback/    → Loading, Shimmer, Snackbar
+├── navigation/  → BottomNav, TabBar, Headers
+└── states/      → Empty state, Error state</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">help</span>
+                        <span class="lang-en">When to put widget in UI Kit?</span>
+                        <span class="lang-ur" style="display:none;">Widget UI Kit mein kab daalein?</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en"><strong>Used on 2+ screens?</strong> → Put in UI Kit<br><strong>Only used on one screen?</strong> → Keep in feature folder</p>
+                        <p class="lang-ur" style="display:none;"><strong>2+ screens pe use hoga?</strong> → UI Kit mein dalo<br><strong>Sirf ek screen pe?</strong> → Feature folder mein rakho</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screen & Widgets -->
+            <section id="screen-widgets" class="content-section">
+                <h1 class="section-title">Screen & Widgets</h1>
+
+                <div class="overview-image">
+                    <img src="assets/screen_widget.png" alt="Screen (Smart) vs Layout (Dumb) comparison">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">We split every feature into two parts: <strong>Screen</strong> and <strong>Layout</strong>. Screen is a thin wrapper that connects to the Controller. Layout is where all the UI code lives.</p>
+                    <p class="lang-ur" style="display:none;">Hum har feature ko do parts mein divide karte hain: <strong>Screen</strong> aur <strong>Layout</strong>. Screen ek thin wrapper hai jo Controller se connect hoti hai. Layout mein sara UI code hota hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">The Screen gets <code>UIState</code> and <code>Actions</code> from the Controller and passes them to the Layout. The Layout only knows about these two things — it doesn't know where the data came from or how actions are handled.</p>
+                    <p class="lang-ur" style="display:none;">Screen Controller se <code>UIState</code> aur <code>Actions</code> leti hai aur Layout ko pass karti hai. Layout sirf in do cheezon ko jaanta hai — use nahi pata data kahan se aaya ya actions kaise handle hote hain.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">This separation makes the Layout completely <strong>independent of the data source</strong>. Whether you're using Mock data during development or Real API in production, the Layout code remains exactly the same. It just receives UIState and renders it.</p>
+                    <p class="lang-ur" style="display:none;">Is separation se Layout <strong>data source se completely independent</strong> ho jata hai. Chahe development mein Mock data use karo ya production mein Real API, Layout ka code bilkul same rehta hai. Wo sirf UIState receive karta hai aur render karta hai.</p>
+                </div>
+
+                <h2 class="lang-en">Why No Impact of Mock vs Real Data?</h2>
+                <h2 class="lang-ur" style="display:none;">Mock vs Real Data Ka Koi Impact Kyun Nahi?</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">The Layout never talks to Repository directly. It only receives UIState which contains ready-to-display data. The Controller decides where to get data from (Mock or API), processes it, and puts it in UIState. Layout just shows whatever is in UIState.</p>
+                    <p class="lang-ur" style="display:none;">Layout kabhi Repository se directly baat nahi karta. Wo sirf UIState receive karta hai jisme display-ready data hota hai. Controller decide karta hai data kahan se lena hai (Mock ya API), process karta hai, aur UIState mein daal deta hai. Layout sirf UIState mein jo hai wo dikhata hai.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Data Flow</div>
+<pre><code>Repository (Mock/API) → Controller → UIState → Layout
+
+Layout doesn't know about Repository!
+It only knows UIState and Actions.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Screen + Layout Structure</div>
+<pre><code>feature/
+├── screens/
+│   └── feature_screen.dart    ← Connects to Controller
+└── widgets/
+    └── feature_layout.dart    ← All UI code here</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Key Benefit</span>
+                        <span class="lang-ur" style="display:none;">Key Benefit</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en">You can build and test the entire UI with Mock data. When API is ready, just switch the Repository in Binding. <strong>Zero changes in Screen or Layout!</strong></p>
+                        <p class="lang-ur" style="display:none;">Aap poori UI Mock data ke saath build aur test kar sakte ho. Jab API ready ho, sirf Binding mein Repository switch karo. <strong>Screen ya Layout mein zero changes!</strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WidgetBook -->
+            <section id="widgetbook" class="content-section">
+                <h1 class="section-title">WidgetBook</h1>
+
+                <div class="overview-image">
+                    <img src="assets/widgetbook.png" alt="Without WidgetBook vs With WidgetBook comparison">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">WidgetBook is a <strong>catalog of all your UI components</strong>. It's a separate app that displays every widget, screen, and component in isolation — without needing to run the full application.</p>
+                    <p class="lang-ur" style="display:none;">WidgetBook aapke <strong>sab UI components ka catalog</strong> hai. Ye ek alag app hai jo har widget, screen, aur component ko isolation mein dikhata hai — poori application run kiye bina.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Think about the traditional way: to see a button on the checkout screen, you'd have to build the app, deploy it, download it, login, add items to cart, and then navigate to checkout. With WidgetBook, you just open it and click on "Checkout Screen" — done!</p>
+                    <p class="lang-ur" style="display:none;">Traditional tarika socho: checkout screen pe button dekhne ke liye, app build karo, deploy karo, download karo, login karo, cart mein items daalo, phir checkout pe jao. WidgetBook ke saath, sirf kholo aur "Checkout Screen" pe click karo — bas!</p>
+                </div>
+
+                <h2 class="lang-en">Who Benefits?</h2>
+                <h2 class="lang-ur" style="display:none;">Kisko Fayda?</h2>
+
+                <div class="content-block">
+                    <p class="lang-en"><strong>Client Review:</strong> Client wants to see if the UI matches their requirements? No need to build, deploy, and have them download the app. Just share the WidgetBook link — they can open it in browser and review all screens instantly.</p>
+                    <p class="lang-ur" style="display:none;"><strong>Client Review:</strong> Client dekhna chahta hai UI unki requirements ke mutabiq hai? App build, deploy, aur download karwane ki zaroorat nahi. Sirf WidgetBook ka link share karo — wo browser mein khol ke sab screens instantly review kar sakte hain.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en"><strong>Designer Review:</strong> Designers can compare their Figma designs with actual implementation. They can check colors, spacing, fonts — everything matches or not.</p>
+                    <p class="lang-ur" style="display:none;"><strong>Designer Review:</strong> Designers apne Figma designs ko actual implementation se compare kar sakte hain. Colors, spacing, fonts check kar sakte hain — sab match hai ya nahi.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en"><strong>QA Testing:</strong> QA team can see all widget states (loading, error, empty, success) without triggering actual conditions. They can test edge cases easily.</p>
+                    <p class="lang-ur" style="display:none;"><strong>QA Testing:</strong> QA team sab widget states (loading, error, empty, success) dekh sakti hai bina actual conditions trigger kiye. Edge cases easily test kar sakte hain.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en"><strong>Developer:</strong> Build and test UI components in isolation. See how a button looks in different sizes, colors, and states — all in one place.</p>
+                    <p class="lang-ur" style="display:none;"><strong>Developer:</strong> UI components isolation mein build aur test karo. Button different sizes, colors, aur states mein kaise dikhta hai — sab ek jagah dekho.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Run WidgetBook</div>
+<pre><code>melos run:widgetbook</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Key Benefit</span>
+                        <span class="lang-ur" style="display:none;">Key Benefit</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en">WidgetBook can be deployed as a web app. Share the URL with anyone — Client, Designer, QA, PM — they can review UI anytime without installing anything.</p>
+                        <p class="lang-ur" style="display:none;">WidgetBook web app ki tarah deploy ho sakta hai. URL kisi ko bhi share karo — Client, Designer, QA, PM — wo bina kuch install kiye kabhi bhi UI review kar sakte hain.</p>
+                    </div>
+                </div>
+
+                <div class="warning-card">
+                    <span class="material-icons">construction</span>
+                    <div>
+                        <strong class="lang-en">Coming Soon</strong>
+                        <strong class="lang-ur" style="display:none;">Coming Soon</strong>
+                        <p class="lang-en">Some new WidgetBook features are currently in development phase. More enhancements will be added soon!</p>
+                        <p class="lang-ur" style="display:none;">Kuch naye WidgetBook features abhi development phase mein hain. Jald aur enhancements add hongi!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UIState -->
+            <section id="uistate" class="content-section">
+                <h1 class="section-title">UIState</h1>
+
+                <div class="overview-image">
+                    <img src="assets/ui_state.png" alt="Without UIState vs With UIState comparison">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">UIState is a <strong>class that holds all the data a screen needs to display</strong>. Instead of scattered variables, everything the screen needs is organized in one place.</p>
+                    <p class="lang-ur" style="display:none;">UIState ek <strong>class hai jo screen ko display karne ke liye sara data hold</strong> karti hai. Bikhre hue variables ki jagah, screen ko jo bhi chahiye wo sab ek jagah organized hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">UIState is <strong>immutable</strong> — once created, it cannot be changed. When something needs to update, Controller creates a new UIState using <code>copyWith()</code> method. This makes state changes predictable and easy to track.</p>
+                    <p class="lang-ur" style="display:none;">UIState <strong>immutable</strong> hai — ek baar create hone ke baad change nahi hoti. Jab kuch update karna ho, Controller <code>copyWith()</code> method se naya UIState create karta hai. Isse state changes predictable aur track karna easy hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Each UIState contains: raw data (products, merchants), loading/error states, user selections (search query, selected category), and content (text strings). It also has computed getters for filtered data and formatted display values.</p>
+                    <p class="lang-ur" style="display:none;">Har UIState mein hota hai: raw data (products, merchants), loading/error states, user selections (search query, selected category), aur content (text strings). Iske paas computed getters bhi hain filtered data aur formatted display values ke liye.</p>
+                </div>
+
+                <h2 class="lang-en">What's Inside UIState?</h2>
+                <h2 class="lang-ur" style="display:none;">UIState Mein Kya Hai?</h2>
+
+                <div class="code-block">
+                    <div class="code-header">UIState Structure</div>
+<pre><code>MerchantDetailUiState:
+│
+├── Data
+│   ├── merchant         → Merchant details
+│   └── products         → List of products
+│
+├── States
+│   ├── isLoading        → Show loading indicator?
+│   └── errorMessage     → Show error message?
+│
+├── User Selections
+│   ├── searchQuery      → What user typed
+│   └── selectedCategory → Which tab selected
+│
+├── Content
+│   └── content          → All text strings
+│
+└── Computed Getters
+    ├── filteredProducts → Products after filter
+    └── hasError         → Is there an error?</code></pre>
+                </div>
+
+                <h2 class="lang-en">How Controller Updates UIState</h2>
+                <h2 class="lang-ur" style="display:none;">Controller UIState Kaise Update Karta Hai</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Controller uses <code>copyWith()</code> to create a new UIState with updated values. Only the fields you specify change — rest remain same.</p>
+                    <p class="lang-ur" style="display:none;">Controller <code>copyWith()</code> use karta hai naya UIState banane ke liye updated values ke saath. Sirf specified fields change hote hain — baaki same rehte hain.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">copyWith Example</div>
+<pre><code>// User searched for "pizza"
+uiState = uiState.copyWith(searchQuery: "pizza");
+
+// Data loaded successfully
+uiState = uiState.copyWith(
+  isLoading: false,
+  merchants: loadedMerchants,
+);
+
+// Error occurred
+uiState = uiState.copyWith(
+  isLoading: false,
+  errorMessage: "Failed to load",
+);</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">rule</span>
+                        <span class="lang-en">Rules</span>
+                        <span class="lang-ur" style="display:none;">Rules</span>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li class="lang-en">One Screen = One UIState</li>
+                            <li class="lang-ur" style="display:none;">Ek Screen = Ek UIState</li>
+                            <li class="lang-en">Only Controller can update UIState</li>
+                            <li class="lang-ur" style="display:none;">Sirf Controller UIState update kare</li>
+                            <li class="lang-en">Screen/Layout can only read UIState</li>
+                            <li class="lang-ur" style="display:none;">Screen/Layout sirf read kare</li>
+                            <li class="lang-en">Use copyWith() for updates (immutable)</li>
+                            <li class="lang-ur" style="display:none;">Updates ke liye copyWith() use karo (immutable)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actions -->
+            <section id="actions" class="content-section">
+                <h1 class="section-title">Actions</h1>
+
+                <div class="overview-image">
+                    <img src="assets/action.png" alt="Actions concept with naming convention and flow">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Actions is a <strong>class containing callback functions for all user interactions</strong> on a screen. When user taps a button, selects a category, or pulls to refresh — Layout calls the corresponding action.</p>
+                    <p class="lang-ur" style="display:none;">Actions ek <strong>class hai jisme screen ke sab user interactions ke callback functions</strong> hain. Jab user button tap kare, category select kare, ya refresh kare — Layout corresponding action call karta hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Controller creates the Actions object and provides the actual implementations. Layout receives Actions and calls them when user interacts. This way, Layout doesn't know what happens when user taps — it just calls the action.</p>
+                    <p class="lang-ur" style="display:none;">Controller Actions object create karta hai aur actual implementations provide karta hai. Layout Actions receive karta hai aur user interact kare to call karta hai. Is tarah, Layout ko nahi pata tap pe kya hoga — wo sirf action call karta hai.</p>
+                </div>
+
+                <h2 class="lang-en">Types of Actions</h2>
+                <h2 class="lang-ur" style="display:none;">Actions Ki Types</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">We use different callback types based on what data is needed:</p>
+                    <p class="lang-ur" style="display:none;">Hum different callback types use karte hain based on kya data chahiye:</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Callback Types</div>
+<pre><code>VoidCallback          → No data needed (onBack, onFavoriteTap)
+ValueChanged&lt;T&gt;       → Needs data (onProductTap, onCategorySelected)
+Future&lt;void&gt; Function → Async operation (onRefresh)</code></pre>
+                </div>
+
+                <h2 class="lang-en">Naming Convention</h2>
+                <h2 class="lang-ur" style="display:none;">Naming Convention</h2>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">label</span>
+                        <code>on + What + Happened</code>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li><code>onBack</code> → User pressed back</li>
+                            <li><code>onSearchChanged</code> → User typed in search</li>
+                            <li><code>onCategorySelected</code> → User selected a category</li>
+                            <li><code>onProductTap</code> → User tapped a product</li>
+                            <li><code>onRefresh</code> → User pulled to refresh</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="lang-en">Empty Actions for WidgetBook</h2>
+                <h2 class="lang-ur" style="display:none;">WidgetBook Ke Liye Empty Actions</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Each Actions class has an <code>empty()</code> factory that creates dummy actions. This is useful for WidgetBook previews where we just want to see the UI without real functionality.</p>
+                    <p class="lang-ur" style="display:none;">Har Actions class mein <code>empty()</code> factory hoti hai jo dummy actions create karti hai. Ye WidgetBook previews ke liye useful hai jahan sirf UI dekhni hai bina real functionality ke.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Action Flow</div>
+<pre><code>User taps product
+    ↓
+Layout calls: actions.onProductTap(product)
+    ↓
+Controller receives the call
+    ↓
+Controller does work (navigate, API call, etc.)
+    ↓
+Controller updates UIState
+    ↓
+Layout shows updated UI</code></pre>
+                </div>
+            </section>
+
+            <!-- Controller -->
+            <section id="controller" class="content-section">
+                <h1 class="section-title">Controller</h1>
+
+                <div class="overview-image">
+                    <img src="assets/controller.gif" alt="Controller as the brain of the screen">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Controller is the <strong>brain of each screen</strong>. It receives Repository through constructor, creates UIState and Actions, handles all user interactions, and updates the UI state.</p>
+                    <p class="lang-ur" style="display:none;">Controller har <strong>screen ka brain</strong> hai. Ye constructor se Repository receive karta hai, UIState aur Actions create karta hai, sab user interactions handle karta hai, aur UI state update karta hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">When Controller is created, it initializes UIState and starts loading data using Repository. It doesn't know if Repository is giving Mock or Real data — it just asks for data and updates UIState with whatever it receives.</p>
+                    <p class="lang-ur" style="display:none;">Jab Controller create hota hai, wo UIState initialize karta hai aur Repository se data load karna shuru karta hai. Use nahi pata Repository Mock data de raha hai ya Real — wo sirf data mangta hai aur jo mile wo UIState mein update karta hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Controller provides the Actions object with implementations of all callbacks. When user taps something, Layout calls the action, Controller handles it — maybe calls Repository, updates UIState, or navigates to another screen.</p>
+                    <p class="lang-ur" style="display:none;">Controller Actions object provide karta hai sab callbacks ki implementations ke saath. Jab user kuch tap kare, Layout action call kare, Controller handle kare — shayad Repository call kare, UIState update kare, ya doosri screen pe navigate kare.</p>
+                </div>
+
+                <h2 class="lang-en">What Controller Does</h2>
+                <h2 class="lang-ur" style="display:none;">Controller Kya Karta Hai</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Controller Responsibilities</div>
+<pre><code>Controller:
+│
+├── Receives Repository (via constructor)
+│
+├── Creates & Updates UIState
+│   └── uiState.copyWith(isLoading: true)
+│
+├── Creates Actions object
+│   └── Provides implementations for all callbacks
+│
+├── Handles User Interactions
+│   ├── _onBack() → Navigate back
+│   ├── _onProductTap() → Go to product detail
+│   ├── _onRefresh() → Reload data
+│   └── _onFavoriteTap() → Toggle favorite
+│
+├── Calls Repository for Data
+│   └── repository.loadMerchantDetail(id)
+│
+└── Handles Navigation
+    └── Get.toNamed('/product/123')</code></pre>
+                </div>
+
+                <h2 class="lang-en">Controller Lifecycle</h2>
+                <h2 class="lang-ur" style="display:none;">Controller Lifecycle</h2>
+
+                <div class="code-block">
+                    <div class="code-header">How Controller Works</div>
+<pre><code>1. Binding creates Controller (passes Repository)
+    ↓
+2. onInit() runs → Load initial data
+    ↓
+3. UIState updates → Screen rebuilds
+    ↓
+4. User interacts → Action called
+    ↓
+5. Controller handles → Updates UIState
+    ↓
+6. Screen shows new state</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">rule</span>
+                        <span class="lang-en">Rules</span>
+                        <span class="lang-ur" style="display:none;">Rules</span>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li class="lang-en">One Screen = One Controller</li>
+                            <li class="lang-ur" style="display:none;">Ek Screen = Ek Controller</li>
+                            <li class="lang-en">Controller doesn't know about Mock vs API</li>
+                            <li class="lang-ur" style="display:none;">Controller ko Mock vs API nahi pata</li>
+                            <li class="lang-en">Only Controller updates UIState</li>
+                            <li class="lang-ur" style="display:none;">Sirf Controller UIState update kare</li>
+                            <li class="lang-en">Controller receives Repository via Binding</li>
+                            <li class="lang-ur" style="display:none;">Controller Repository Binding se receive kare</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bindings -->
+            <section id="bindings" class="content-section">
+                <h1 class="section-title">Bindings</h1>
+
+                <div class="overview-image">
+                    <img src="assets/binding.gif" alt="Bindings - Setup before screen opens">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Binding is the <strong>setup that runs before a screen opens</strong>. It registers the Repository and creates the Controller with all its dependencies.</p>
+                    <p class="lang-ur" style="display:none;">Binding wo <strong>setup hai jo screen khulne se pehle run</strong> hoti hai. Ye Repository register karti hai aur Controller ko sab dependencies ke saath create karti hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">When user navigates to a screen, GetX first runs the Binding's <code>dependencies()</code> method. Here we register Repository (Mock or API), get route parameters, and create the Controller by passing Repository to it.</p>
+                    <p class="lang-ur" style="display:none;">Jab user screen pe navigate kare, GetX pehle Binding ka <code>dependencies()</code> method run karta hai. Yahan hum Repository register karte hain (Mock ya API), route parameters lete hain, aur Controller create karte hain Repository pass karke.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">This is the <strong>only place where Mock vs API decision happens</strong>. Controller and Screen don't know which Repository is being used. They just work with whatever Repository is provided.</p>
+                    <p class="lang-ur" style="display:none;">Ye <strong>sirf wahi jagah hai jahan Mock vs API decision hota hai</strong>. Controller aur Screen ko nahi pata kaun sa Repository use ho raha. Wo sirf jo Repository mili hai uske saath kaam karte hain.</p>
+                </div>
+
+                <h2 class="lang-en">What Binding Does</h2>
+                <h2 class="lang-ur" style="display:none;">Binding Kya Karti Hai</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Binding Steps</div>
+<pre><code>User navigates to screen
+    ↓
+Binding.dependencies() runs
+    ↓
+1. Register Repository
+   └── MockRepository() or ApiRepository()
+    ↓
+2. Get route parameters
+   └── merchantId from URL
+    ↓
+3. Get arguments
+   └── Initial data passed from previous screen
+    ↓
+4. Create Controller
+   └── Pass repository, parameters, content
+    ↓
+Screen opens with everything ready!</code></pre>
+                </div>
+
+                <h2 class="lang-en">Switching Mock to API</h2>
+                <h2 class="lang-ur" style="display:none;">Mock se API Switch Karna</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">To switch from Mock to Real API, you only change one line in Binding. Everything else — Controller, Screen, Layout — remains exactly the same.</p>
+                    <p class="lang-ur" style="display:none;">Mock se Real API switch karne ke liye, sirf Binding mein ek line change karo. Baaki sab — Controller, Screen, Layout — bilkul same rehta hai.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">One Line Change</div>
+<pre><code>// During Development (Mock)
+Get.lazyPut&lt;IHomeRepository&gt;(() => MockHomeRepository());
+
+// For Production (API)
+Get.lazyPut&lt;IHomeRepository&gt;(() => ApiHomeRepository());</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Key Benefit</span>
+                        <span class="lang-ur" style="display:none;">Key Benefit</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en">Developers can build complete UI with Mock data while backend team works on API. When API is ready, just switch one line in Binding — no changes needed in Controller, Screen, or Layout!</p>
+                        <p class="lang-ur" style="display:none;">Developers poori UI Mock data ke saath bana sakte hain jabke backend team API pe kaam kare. Jab API ready ho, sirf Binding mein ek line switch karo — Controller, Screen, ya Layout mein koi change nahi!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shared Package -->
+            <section id="shared" class="content-section">
+                <h1 class="section-title">Shared Package</h1>
+
+                <div class="overview-image">
+                    <img src="assets/shared.gif" alt="Shared Package - Central configuration">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Core package is the <strong>central configuration hub</strong> for all apps. It contains AppConfig (app settings) and Content classes (all text strings). This allows same features to show different text for Customer, Business, and Rider apps.</p>
+                    <p class="lang-ur" style="display:none;">Core package sab apps ke liye <strong>central configuration hub</strong> hai. Isme AppConfig (app settings) aur Content classes (sab text strings) hain. Isse same features Customer, Business, aur Rider apps ke liye different text dikha sakte hain.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Each feature has its own Content class (HomeContent, AuthContent, CartContent). These classes contain all the text strings that appear on screens — labels, buttons, messages, error texts. No hardcoded strings in UI code!</p>
+                    <p class="lang-ur" style="display:none;">Har feature ki apni Content class hai (HomeContent, AuthContent, CartContent). In classes mein sab text strings hain jo screens pe dikhti hain — labels, buttons, messages, error texts. UI code mein koi hardcoded strings nahi!</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Content classes have static presets for each app type. For example, <code>HomeContent.customer</code> shows "Search restaurants...", while <code>HomeContent.rider</code> shows "Search deliveries...". Same screen, different text!</p>
+                    <p class="lang-ur" style="display:none;">Content classes mein har app type ke liye static presets hain. For example, <code>HomeContent.customer</code> mein "Search restaurants..." dikhta hai, jabke <code>HomeContent.rider</code> mein "Search deliveries..." dikhta hai. Same screen, different text!</p>
+                </div>
+
+                <h2 class="lang-en">AppConfig</h2>
+                <h2 class="lang-ur" style="display:none;">AppConfig</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">AppConfig is the main configuration class. Each app (Customer, Business, Rider) provides its own implementation with specific content and feature flags.</p>
+                    <p class="lang-ur" style="display:none;">AppConfig main configuration class hai. Har app (Customer, Business, Rider) apni implementation provide karti hai specific content aur feature flags ke saath.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">AppConfig Structure</div>
+<pre><code>AppConfig:
+├── appType          → Customer, Business, or Rider
+├── appName          → "Cravo Customer", "Cravo Business"
+│
+├── Content for each feature
+│   ├── welcomeContent
+│   ├── authContent
+│   ├── homeContent
+│   ├── cartContent
+│   ├── profileContent
+│   └── ... (20+ content classes)
+│
+└── Feature Flags
+    ├── showOnboarding
+    ├── showSocialLogin
+    └── showPhoneAuth</code></pre>
+                </div>
+
+                <h2 class="lang-en">Content Classes</h2>
+                <h2 class="lang-ur" style="display:none;">Content Classes</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Same Feature, Different Text</div>
+<pre><code>// Customer App
+HomeContent.customer:
+  searchHint: "Search restaurants, dishes..."
+  ordersNavLabel: "Orders"
+
+// Rider App
+HomeContent.rider:
+  searchHint: "Search deliveries..."
+  ordersNavLabel: "Deliveries"
+
+// Business App
+HomeContent.business:
+  searchHint: "Search orders, menu items..."
+  ordersNavLabel: "Orders"</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Key Benefits</span>
+                        <span class="lang-ur" style="display:none;">Key Benefits</span>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li class="lang-en">All text in one place — easy to find and change</li>
+                            <li class="lang-ur" style="display:none;">Sab text ek jagah — dhundhna aur change karna easy</li>
+                            <li class="lang-en">Same UI code works for all 3 apps</li>
+                            <li class="lang-ur" style="display:none;">Same UI code teeno apps ke liye kaam karta hai</li>
+                            <li class="lang-en">No hardcoded strings in widgets</li>
+                            <li class="lang-ur" style="display:none;">Widgets mein hardcoded strings nahi</li>
+                            <li class="lang-en">Easy to add translations later</li>
+                            <li class="lang-ur" style="display:none;">Baad mein translations add karna easy</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <section id="navigation" class="content-section">
+                <h1 class="section-title">Navigation</h1>
+
+                <div class="content-block">
+                    <p class="lang-en">We use <strong>GetX navigation</strong> for routing. All routes are defined in <code>AppRoutes</code> class and registered in <code>AppPages</code> with their screens and bindings.</p>
+                    <p class="lang-ur" style="display:none;">Hum routing ke liye <strong>GetX navigation</strong> use karte hain. Sab routes <code>AppRoutes</code> class mein define hain aur <code>AppPages</code> mein screens aur bindings ke saath register hain.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Each route is a <code>GetPage</code> that connects a URL path to a Screen and Binding. When user navigates to a route, GetX automatically runs the Binding first, then shows the Screen.</p>
+                    <p class="lang-ur" style="display:none;">Har route ek <code>GetPage</code> hai jo URL path ko Screen aur Binding se connect karta hai. Jab user route pe navigate kare, GetX automatically pehle Binding run karta hai, phir Screen dikhata hai.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Route Definition</div>
+<pre><code>// Route names (AppRoutes)
+static const merchantDetail = '/merchant/:id';
+static const productDetail = '/product/:id';
+static const cart = '/cart';
+
+// Route registration (AppPages)
+GetPage(
+  name: AppRoutes.merchantDetail,
+  page: () => const MerchantDetailScreen(),
+  binding: MerchantDetailBinding(),
+  transition: Transition.cupertino,
+),</code></pre>
+                </div>
+
+                <h2 class="lang-en">Navigation Methods</h2>
+                <h2 class="lang-ur" style="display:none;">Navigation Methods</h2>
+
+                <div class="code-block">
+                    <div class="code-header">How to Navigate</div>
+<pre><code>// Go to new screen (can come back)
+Get.toNamed('/merchant/123');
+
+// Go to new screen with data
+Get.toNamed('/merchant/123', arguments: merchant);
+
+// Go back to previous screen
+Get.back();
+
+// Replace current screen (can't come back)
+Get.offNamed('/home');
+
+// Clear all and go to screen (fresh start)
+Get.offAllNamed('/login');</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Dynamic Routes</span>
+                        <span class="lang-ur" style="display:none;">Dynamic Routes</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en">Routes can have parameters like <code>/merchant/:id</code>. Access them in Binding using <code>Get.parameters['id']</code>. Pass extra data using <code>arguments</code>.</p>
+                        <p class="lang-ur" style="display:none;">Routes mein parameters ho sakte hain jaise <code>/merchant/:id</code>. Binding mein <code>Get.parameters['id']</code> se access karo. Extra data <code>arguments</code> se pass karo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Models, DTOs, Mapper -->
+            <section id="models" class="content-section">
+                <h1 class="section-title">Models, DTOs, Mapper</h1>
+
+                <div class="overview-image">
+                    <img src="assets/dto_mapper_model.gif" alt="DTO to Mapper to Model flow">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">When app receives data from API, we use three layers to handle it: <strong>DTO</strong> (exactly matches API response), <strong>Model</strong> (clean data for app use), and <strong>Mapper</strong> (converts between them).</p>
+                    <p class="lang-ur" style="display:none;">Jab app API se data receive kare, hum teen layers use karte hain: <strong>DTO</strong> (exactly API response jaisa), <strong>Model</strong> (app ke liye clean data), aur <strong>Mapper</strong> (dono ke beech convert kare).</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">This separation protects your app from API changes. If backend changes field names, you only update DTO and Mapper — all your Controllers, UIStates, and Screens remain untouched.</p>
+                    <p class="lang-ur" style="display:none;">Ye separation aapki app ko API changes se protect karti hai. Agar backend field names change kare, sirf DTO aur Mapper update karo — sab Controllers, UIStates, aur Screens untouched rehte hain.</p>
+                </div>
+
+                <h2 class="lang-en">Three Layers</h2>
+                <h2 class="lang-ur" style="display:none;">Teen Layers</h2>
+
+                <div class="code-block">
+                    <div class="code-header">DTO → Mapper → Model</div>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│                       API                            │
+│         { "user_id": 1, "user_name": "Ali" }        │
+└─────────────────────────────────────────────────────┘
+                         ↓
+┌─────────────────────────────────────────────────────┐
+│                      DTO                             │
+│    Exactly matches API. Has fromJson/toJson.         │
+│    UserDTO(userId: 1, userName: "Ali")              │
+└─────────────────────────────────────────────────────┘
+                         ↓
+┌─────────────────────────────────────────────────────┐
+│                     Mapper                           │
+│    Converts DTO ↔ Model. Handles null, defaults.    │
+│    UserMapper.toModel(dto) / toDTO(model)           │
+└─────────────────────────────────────────────────────┘
+                         ↓
+┌─────────────────────────────────────────────────────┐
+│                     Model                            │
+│    Clean data for app. Has copyWith, getters.       │
+│    User(id: 1, name: "Ali")                         │
+└─────────────────────────────────────────────────────┘</code></pre>
+                </div>
+
+                <h2 class="lang-en">When API Changes</h2>
+                <h2 class="lang-ur" style="display:none;">Jab API Change Ho</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Backend changed <code>user_name</code> to <code>full_name</code>? Only update DTO's <code>fromJson</code> and Mapper. Your Model still has <code>name</code>, so all app code works without changes.</p>
+                    <p class="lang-ur" style="display:none;">Backend ne <code>user_name</code> ko <code>full_name</code> kar diya? Sirf DTO ka <code>fromJson</code> aur Mapper update karo. Model mein abhi bhi <code>name</code> hai, to sab app code bina changes ke kaam karta hai.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Key Rule</span>
+                        <span class="lang-ur" style="display:none;">Key Rule</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en">Controllers and Screens only know about <strong>Models</strong>. They never see DTOs. This keeps API details hidden from your app logic.</p>
+                        <p class="lang-ur" style="display:none;">Controllers aur Screens sirf <strong>Models</strong> ko jaante hain. Wo kabhi DTOs nahi dekhte. Isse API details app logic se hidden rehti hain.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Repository -->
+            <section id="repository" class="content-section">
+                <h1 class="section-title">Repository</h1>
+
+                <div class="overview-image">
+                    <img src="assets/repository.gif" alt="Repository Pattern - Interface, Mock, and API">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Repository is the <strong>data layer</strong> that provides data to Controllers. It has an interface (contract) and multiple implementations — MockRepository for development and ApiRepository for production.</p>
+                    <p class="lang-ur" style="display:none;">Repository wo <strong>data layer</strong> hai jo Controllers ko data provide karti hai. Iski ek interface (contract) hai aur multiple implementations hain — development ke liye MockRepository aur production ke liye ApiRepository.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Controller only knows the interface (e.g., <code>IHomeRepository</code>). It doesn't know if it's getting Mock or Real data. This allows us to develop entire features without waiting for backend APIs.</p>
+                    <p class="lang-ur" style="display:none;">Controller sirf interface jaanta hai (e.g., <code>IHomeRepository</code>). Use nahi pata Mock data mil raha hai ya Real. Isse hum backend APIs ka wait kiye bina poore features develop kar sakte hain.</p>
+                </div>
+
+                <h2 class="lang-en">Repository Structure</h2>
+                <h2 class="lang-ur" style="display:none;">Repository Structure</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Three Parts</div>
+<pre><code>repositories/
+│
+├── i_home_repository.dart      ← Interface (Contract)
+│   └── Defines: loadHomeData(), toggleFavorite(), etc.
+│
+├── mock_home_repository.dart   ← Mock Implementation
+│   └── Returns fake data, simulates delays
+│   └── No internet needed!
+│
+└── api_home_repository.dart    ← API Implementation
+    └── Calls real backend APIs
+    └── Uses DTOs and Mappers</code></pre>
+                </div>
+
+                <h2 class="lang-en">How Mock Repository Works</h2>
+                <h2 class="lang-ur" style="display:none;">Mock Repository Kaise Kaam Karti Hai</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">MockRepository returns hardcoded fake data with simulated network delays. It behaves exactly like real API — same method signatures, same return types — so Controller can't tell the difference.</p>
+                    <p class="lang-ur" style="display:none;">MockRepository hardcoded fake data return karti hai simulated network delays ke saath. Ye bilkul real API jaisi behave karti hai — same method signatures, same return types — to Controller farq nahi bata sakta.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">Mock vs API</div>
+<pre><code>// Mock - Returns fake data
+Future&lt;HomeData&gt; loadHomeData() async {
+  await Future.delayed(Duration(milliseconds: 500));
+  return HomeData(merchants: _fakeMerchants);
+}
+
+// API - Calls real backend
+Future&lt;HomeData&gt; loadHomeData() async {
+  final response = await http.get('/api/home');
+  final dto = HomeDataDTO.fromJson(response);
+  return HomeDataMapper.toModel(dto);
+}</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Key Benefits</span>
+                        <span class="lang-ur" style="display:none;">Key Benefits</span>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li class="lang-en">Develop without internet or backend</li>
+                            <li class="lang-ur" style="display:none;">Bina internet ya backend ke develop karo</li>
+                            <li class="lang-en">Test edge cases easily (empty data, errors)</li>
+                            <li class="lang-ur" style="display:none;">Edge cases easily test karo (empty data, errors)</li>
+                            <li class="lang-en">Switch Mock → API with one line change in Binding</li>
+                            <li class="lang-ur" style="display:none;">Binding mein ek line change se Mock → API switch</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Integration -->
+            <section id="api" class="content-section">
+                <h1 class="section-title">API Integration</h1>
+
+                <div class="content-block">
+                    <p class="lang-en">API integration happens in the <strong>ApiRepository</strong> layer. It makes HTTP calls to backend, receives JSON response, converts it using DTO and Mapper, and returns clean Models to Controller.</p>
+                    <p class="lang-ur" style="display:none;">API integration <strong>ApiRepository</strong> layer mein hoti hai. Ye backend ko HTTP calls karti hai, JSON response receive karti hai, DTO aur Mapper se convert karti hai, aur Controller ko clean Models return karti hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">We use a centralized API service that handles common things — base URL, headers, authentication tokens, error handling. Each ApiRepository uses this service for all HTTP calls.</p>
+                    <p class="lang-ur" style="display:none;">Hum centralized API service use karte hain jo common cheezein handle kare — base URL, headers, authentication tokens, error handling. Har ApiRepository is service ko sab HTTP calls ke liye use karti hai.</p>
+                </div>
+
+                <h2 class="lang-en">API Call Flow</h2>
+                <h2 class="lang-ur" style="display:none;">API Call Flow</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Complete Flow</div>
+<pre><code>Controller calls repository.loadMerchants()
+    ↓
+ApiRepository makes HTTP request
+    ↓
+Server returns JSON response
+    ↓
+DTO.fromJson() parses the JSON
+    ↓
+Mapper converts DTO → Model
+    ↓
+Controller receives clean Model
+    ↓
+Controller updates UIState
+    ↓
+Screen shows the data</code></pre>
+                </div>
+
+                <h2 class="lang-en">HTTP Methods</h2>
+                <h2 class="lang-ur" style="display:none;">HTTP Methods</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Common Methods</div>
+<pre><code>GET     → Fetch data (loadMerchants, getProfile)
+POST    → Create new (placeOrder, addAddress)
+PUT     → Update all (updateProfile)
+PATCH   → Update partial (toggleFavorite)
+DELETE  → Remove (deleteAddress, removeFromCart)</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Error Handling</span>
+                        <span class="lang-ur" style="display:none;">Error Handling</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en">ApiRepository catches errors and throws meaningful exceptions. Controller catches these and updates UIState with error message. Screen shows error state to user.</p>
+                        <p class="lang-ur" style="display:none;">ApiRepository errors catch karti hai aur meaningful exceptions throw karti hai. Controller inhe catch karta hai aur UIState ko error message se update karta hai. Screen user ko error state dikhati hai.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GitHub Strategy -->
+            <section id="github" class="content-section">
+                <h1 class="section-title">GitHub Strategy</h1>
+
+                <div class="content-block">
+                    <p class="lang-en">We use <strong>Git Flow</strong> branching strategy to keep code organized. Each feature is developed in its own branch, tested, reviewed, and then merged. This prevents conflicts and keeps main branch stable.</p>
+                    <p class="lang-ur" style="display:none;">Hum code organized rakhne ke liye <strong>Git Flow</strong> branching strategy use karte hain. Har feature apni branch mein develop hota hai, test hota hai, review hota hai, phir merge hota hai. Isse conflicts nahi hote aur main branch stable rehti hai.</p>
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">Never push directly to <code>main</code> or <code>develop</code>. Always create a feature branch, make changes, create Pull Request, get it reviewed, then merge.</p>
+                    <p class="lang-ur" style="display:none;">Kabhi <code>main</code> ya <code>develop</code> pe directly push mat karo. Hamesha feature branch banao, changes karo, Pull Request create karo, review karwao, phir merge karo.</p>
+                </div>
+
+                <h2 class="lang-en">Branch Strategy</h2>
+                <h2 class="lang-ur" style="display:none;">Branch Strategy</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Branch Flow</div>
+<pre><code>main (Production - Live app)
+  │
+  └── develop (Development - Testing)
+        │
+        ├── feature/cart-redesign
+        ├── feature/payment-integration
+        ├── bugfix/login-crash
+        └── hotfix/critical-fix</code></pre>
+                </div>
+
+                <h2 class="lang-en">Workflow</h2>
+                <h2 class="lang-ur" style="display:none;">Workflow</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Development Flow</div>
+<pre><code>1. Create branch from develop
+   git checkout -b feature/cart-redesign
+
+2. Make your changes
+   (code, test, commit)
+
+3. Push branch
+   git push origin feature/cart-redesign
+
+4. Create Pull Request
+   develop ← feature/cart-redesign
+
+5. Code Review
+   Team reviews, suggests changes
+
+6. Merge to develop
+   After approval, merge PR
+
+7. Release to main
+   When ready, merge develop → main</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Branch Naming</span>
+                        <span class="lang-ur" style="display:none;">Branch Naming</span>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li><code>feature/</code> → New feature (feature/add-wallet)</li>
+                            <li><code>bugfix/</code> → Bug fix (bugfix/cart-total-wrong)</li>
+                            <li><code>hotfix/</code> → Urgent production fix</li>
+                            <li><code>refactor/</code> → Code cleanup</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Complete Flow -->
+            <section id="complete-flow" class="content-section">
+                <h1 class="section-title">Complete Flow</h1>
+
+                <div class="content-block">
+                    <p class="lang-en">Now let's see how <strong>everything works together</strong>. From user opening a screen to seeing data — every layer plays its role.</p>
+                    <p class="lang-ur" style="display:none;">Ab dekhte hain <strong>sab kaise milke kaam karta hai</strong>. User ke screen kholne se data dekhne tak — har layer apna role play karti hai.</p>
+                </div>
+
+                <h2 class="lang-en">Screen Opening Flow</h2>
+                <h2 class="lang-ur" style="display:none;">Screen Opening Flow</h2>
+
+                <div class="code-block">
+                    <div class="code-header">What Happens When Screen Opens</div>
+<pre><code>User navigates to /merchant/123
+    ↓
+GetX finds route in AppPages
+    ↓
+Binding.dependencies() runs
+├── Registers MockRepository (or ApiRepository)
+├── Gets merchantId from route parameters
+└── Creates Controller with Repository
+    ↓
+Controller.onInit() runs
+├── Creates initial UIState (isLoading: true)
+└── Calls repository.loadMerchantDetail(id)
+    ↓
+Repository returns data
+├── Mock: Returns fake data after delay
+└── API: Calls server → DTO → Mapper → Model
+    ↓
+Controller updates UIState
+├── isLoading: false
+└── merchant: loadedData
+    ↓
+Screen rebuilds with new UIState
+    ↓
+Layout receives UIState + Actions
+    ↓
+Layout draws UI using Theme + UI Kit
+    ↓
+User sees the merchant detail page!</code></pre>
+                </div>
+
+                <h2 class="lang-en">User Action Flow</h2>
+                <h2 class="lang-ur" style="display:none;">User Action Flow</h2>
+
+                <div class="code-block">
+                    <div class="code-header">What Happens When User Taps</div>
+<pre><code>User taps "Add to Cart" button
+    ↓
+Layout calls: actions.onProductAddTap(product)
+    ↓
+Controller handles the action
+├── Calls repository.addProductToCart(productId)
+└── Shows loading if needed
+    ↓
+Repository does the work
+├── Mock: Adds to local list, returns count
+└── API: POST /cart → Response → Model
+    ↓
+Controller updates UIState
+├── cartItemCount: newCount
+└── feedbackMessage: "Added to cart"
+    ↓
+Screen rebuilds
+    ↓
+Layout shows updated cart count + toast
+    ↓
+User sees confirmation!</code></pre>
+                </div>
+
+                <h2 class="lang-en">Architecture Summary</h2>
+                <h2 class="lang-ur" style="display:none;">Architecture Summary</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Layer Responsibilities</div>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│  SCREEN          → Connects Controller to Layout    │
+├─────────────────────────────────────────────────────┤
+│  LAYOUT          → Draws UI, calls Actions          │
+├─────────────────────────────────────────────────────┤
+│  CONTROLLER      → Brain, handles logic, updates    │
+├─────────────────────────────────────────────────────┤
+│  UISTATE         → Holds all screen data            │
+├─────────────────────────────────────────────────────┤
+│  ACTIONS         → Callbacks for user interactions  │
+├─────────────────────────────────────────────────────┤
+│  BINDING         → Creates Repository + Controller  │
+├─────────────────────────────────────────────────────┤
+│  REPOSITORY      → Provides data (Mock or API)      │
+├─────────────────────────────────────────────────────┤
+│  DTO + MAPPER    → Converts API ↔ Model             │
+└─────────────────────────────────────────────────────┘</code></pre>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Key Takeaways</span>
+                        <span class="lang-ur" style="display:none;">Key Takeaways</span>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li class="lang-en">Each layer has one job — separation of concerns</li>
+                            <li class="lang-ur" style="display:none;">Har layer ka ek kaam — separation of concerns</li>
+                            <li class="lang-en">Mock and API are interchangeable — only Binding changes</li>
+                            <li class="lang-ur" style="display:none;">Mock aur API interchangeable hain — sirf Binding change</li>
+                            <li class="lang-en">Screen/Layout don't know about data source</li>
+                            <li class="lang-ur" style="display:none;">Screen/Layout ko data source nahi pata</li>
+                            <li class="lang-en">UIState is single source of truth for screen</li>
+                            <li class="lang-ur" style="display:none;">UIState screen ka single source of truth</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics -->
+            <section id="analytics" class="content-section">
+                <h1 class="section-title">Analytics</h1>
+
+                <div class="overview-image">
+                    <img src="assets/analytics.gif" alt="Google Analytics vs Microsoft Clarity">
+                </div>
+
+                <div class="content-block">
+                    <p class="lang-en">We use two analytics tools in our app: <strong>Google Analytics</strong> and <strong>Microsoft Clarity</strong>. Together they give us complete visibility into how users interact with our app — what they do and why they do it.</p>
+                    <p class="lang-ur" style="display:none;">Hum apni app mein do analytics tools use karte hain: <strong>Google Analytics</strong> aur <strong>Microsoft Clarity</strong>. Dono milke complete visibility dete hain ke users app ke saath kaise interact karte hain — kya karte hain aur kyun karte hain.</p>
+                </div>
+
+                <h2 class="lang-en">Google Analytics (GA4)</h2>
+                <h2 class="lang-ur" style="display:none;">Google Analytics (GA4)</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Google Analytics answers the <strong>"WHAT"</strong> — what's happening in your app. It tracks user counts, page views, traffic sources, conversions, and marketing performance.</p>
+                    <p class="lang-ur" style="display:none;">Google Analytics <strong>"WHAT"</strong> batata hai — app mein kya ho raha hai. Ye user counts, page views, traffic sources, conversions, aur marketing performance track karta hai.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">What GA4 Tracks</div>
+<pre><code>Users & Sessions    → How many users visited
+Traffic Sources     → Where they came from (Google, Facebook, Direct)
+Page Views          → Which screens they viewed
+Events              → Button clicks, form submissions, purchases
+Conversions         → Orders placed, signups completed
+User Journey        → Flow from screen to screen</code></pre>
+                </div>
+
+                <h2 class="lang-en">Microsoft Clarity</h2>
+                <h2 class="lang-ur" style="display:none;">Microsoft Clarity</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Microsoft Clarity answers the <strong>"WHY"</strong> — why users behave the way they do. It shows actual user sessions, where they click, scroll, and get frustrated.</p>
+                    <p class="lang-ur" style="display:none;">Microsoft Clarity <strong>"WHY"</strong> batata hai — users aise behave kyun karte hain. Ye actual user sessions dikhata hai, kahan click kiya, scroll kiya, aur frustrate hue.</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">What Clarity Offers</div>
+<pre><code>Session Recordings  → Watch real user sessions like a video
+Heatmaps            → See where users click and scroll most
+Rage Clicks         → Detect frustrated clicking (user angry!)
+Dead Clicks         → Clicks on non-clickable elements
+Scroll Depth        → How far users scroll on each page
+JS Errors           → JavaScript errors users encounter</code></pre>
+                </div>
+
+                <h2 class="lang-en">Why Use Both?</h2>
+                <h2 class="lang-ur" style="display:none;">Dono Kyun Use Karein?</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">They complement each other perfectly. GA4 tells you "50% users dropped at checkout", Clarity shows you the actual recording — maybe the button was hidden, or form was confusing.</p>
+                    <p class="lang-ur" style="display:none;">Dono ek dusre ko perfectly complement karte hain. GA4 batata hai "50% users checkout pe drop hue", Clarity actual recording dikhata hai — shayad button hidden tha, ya form confusing tha.</p>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Google Analytics</th>
+                                <th>Microsoft Clarity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Focus</strong></td>
+                                <td class="lang-en">Numbers & Data</td>
+                                <td class="lang-en">Visual & Behavior</td>
+                                <td class="lang-ur" style="display:none;">Numbers & Data</td>
+                                <td class="lang-ur" style="display:none;">Visual & Behavior</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Answers</strong></td>
+                                <td class="lang-en">What happened?</td>
+                                <td class="lang-en">Why it happened?</td>
+                                <td class="lang-ur" style="display:none;">Kya hua?</td>
+                                <td class="lang-ur" style="display:none;">Kyun hua?</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Best For</strong></td>
+                                <td class="lang-en">Traffic, Conversions, Marketing</td>
+                                <td class="lang-en">UX, User Behavior, Debugging</td>
+                                <td class="lang-ur" style="display:none;">Traffic, Conversions, Marketing</td>
+                                <td class="lang-ur" style="display:none;">UX, User Behavior, Debugging</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Price</strong></td>
+                                <td>Free (GA4 360 paid)</td>
+                                <td>Completely Free</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Real Example</span>
+                        <span class="lang-ur" style="display:none;">Real Example</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en"><strong>GA4 shows:</strong> "Cart abandonment is 60%"<br><strong>Clarity shows:</strong> Session recording reveals users can't find the checkout button because it's below the fold on mobile.</p>
+                        <p class="lang-ur" style="display:none;"><strong>GA4 dikhata hai:</strong> "Cart abandonment 60% hai"<br><strong>Clarity dikhata hai:</strong> Session recording mein pata chalta hai users checkout button nahi dhundh pa rahe kyunke mobile pe neeche hai.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p class="lang-en">Flutter Architecture Documentation</p>
+                <p class="lang-ur" style="display:none;">Flutter Architecture Documentation</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
