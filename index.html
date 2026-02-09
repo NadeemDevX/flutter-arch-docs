@@ -87,7 +87,11 @@
                     <div class="nav-section-title">Advanced</div>
                     <a href="#github" class="nav-item">GitHub Strategy</a>
                     <a href="#complete-flow" class="nav-item">Complete Flow</a>
-                    <a href="#analytics" class="nav-item">Analytics</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Tools</div>
+                    <a href="#monitoring" class="nav-item">App Monitoring</a>
                 </div>
             </nav>
         </aside>
@@ -1582,61 +1586,335 @@ User sees confirmation!</code></pre>
                 </div>
             </section>
 
-            <!-- Analytics -->
-            <section id="analytics" class="content-section">
-                <h1 class="section-title">Analytics</h1>
+            <!-- App Monitoring -->
+            <section id="monitoring" class="content-section">
+                <h1 class="section-title">App Monitoring</h1>
 
                 <div class="overview-image">
-                    <img src="assets/analytics.gif" alt="Google Analytics vs Microsoft Clarity">
+                    <img src="assets/app_monitor.gif" alt="App Monitoring - Firebase Crashlytics and Microsoft Clarity">
                 </div>
 
                 <div class="content-block">
-                    <p class="lang-en">We use two analytics tools in our app: <strong>Google Analytics</strong> and <strong>Microsoft Clarity</strong>. Together they give us complete visibility into how users interact with our app — what they do and why they do it.</p>
-                    <p class="lang-ur" style="display:none;">Hum apni app mein do analytics tools use karte hain: <strong>Google Analytics</strong> aur <strong>Microsoft Clarity</strong>. Dono milke complete visibility dete hain ke users app ke saath kaise interact karte hain — kya karte hain aur kyun karte hain.</p>
+                    <p class="lang-en">We use two powerful tools for app monitoring: <strong>Firebase Crashlytics</strong> for crash reporting and <strong>Microsoft Clarity</strong> for user behavior analysis. Together, they give us complete visibility — what's breaking and why users struggle.</p>
+                    <p class="lang-ur" style="display:none;">Hum app monitoring ke liye do powerful tools use karte hain: <strong>Firebase Crashlytics</strong> crash reporting ke liye aur <strong>Microsoft Clarity</strong> user behavior analysis ke liye. Dono milke complete visibility dete hain — kya break ho raha hai aur users kyun struggle kar rahe hain.</p>
                 </div>
 
-                <h2 class="lang-en">Google Analytics (GA4)</h2>
-                <h2 class="lang-ur" style="display:none;">Google Analytics (GA4)</h2>
+                <!-- Firebase Crashlytics -->
+                <h2 style="margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--border-color);">Firebase Crashlytics</h2>
+
+                <div style="background-color: #ffebee; border: 2px solid #f44336; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
+                    <p style="color: #c62828; margin: 0; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        <span class="material-icons" style="color: #f44336;">error</span>
+                        <span class="lang-en">IMPORTANT: Using Firebase Crashlytics is MANDATORY in our app. Every app must have it integrated.</span>
+                        <span class="lang-ur" style="display:none;">IMPORTANT: Firebase Crashlytics hamare app mein use karna LAZMI hai. Har app mein ye hona chahiye.</span>
+                    </p>
+                </div>
 
                 <div class="content-block">
-                    <p class="lang-en">Google Analytics answers the <strong>"WHAT"</strong> — what's happening in your app. It tracks user counts, page views, traffic sources, conversions, and marketing performance.</p>
-                    <p class="lang-ur" style="display:none;">Google Analytics <strong>"WHAT"</strong> batata hai — app mein kya ho raha hai. Ye user counts, page views, traffic sources, conversions, aur marketing performance track karta hai.</p>
+                    <p class="lang-en"><strong>Firebase Crashlytics</strong> is a real-time crash reporting tool that helps you track, prioritize, and fix stability issues in your app. It's like having a doctor for your app — when something goes wrong, it tells you exactly where and why.</p>
+                    <p class="lang-ur" style="display:none;"><strong>Firebase Crashlytics</strong> ek real-time crash reporting tool hai jo app ki stability issues track, prioritize aur fix karne mein madad karta hai. Ye app ka doctor hai — jab kuch galat ho, ye exactly batata hai kahan aur kyun.</p>
+                </div>
+
+                <h2 class="lang-en">What Does It Do?</h2>
+                <h2 class="lang-ur" style="display:none;">Ye Kya Karta Hai?</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Think of Crashlytics as a security camera for your app. When your app crashes for any user anywhere in the world, Crashlytics records everything — what happened, where it happened, and what the user was doing before the crash.</p>
+                    <p class="lang-ur" style="display:none;">Crashlytics ko app ka security camera samjho. Jab bhi kisi user ka app crash ho duniya mein kahin bhi, Crashlytics sab record karta hai — kya hua, kahan hua, aur user crash se pehle kya kar raha tha.</p>
                 </div>
 
                 <div class="code-block">
-                    <div class="code-header">What GA4 Tracks</div>
-<pre><code>Users & Sessions    → How many users visited
-Traffic Sources     → Where they came from (Google, Facebook, Direct)
-Page Views          → Which screens they viewed
-Events              → Button clicks, form submissions, purchases
-Conversions         → Orders placed, signups completed
-User Journey        → Flow from screen to screen</code></pre>
+                    <div class="code-header">What Crashlytics Tracks</div>
+<pre><code>Crash Reports      → Automatic crash detection with full stack trace
+Non-Fatal Errors   → Caught exceptions that don't crash the app
+ANR (App Not Responding) → When app freezes/hangs
+Breadcrumbs        → User actions leading up to crash
+Device Info        → Phone model, OS version, memory
+Custom Logs        → Your own debug messages
+User ID            → Track crashes per user</code></pre>
                 </div>
 
-                <h2 class="lang-en">Microsoft Clarity</h2>
-                <h2 class="lang-ur" style="display:none;">Microsoft Clarity</h2>
+                <h2 class="lang-en">Real Life Example</h2>
+                <h2 class="lang-ur" style="display:none;">Real Life Example</h2>
 
-                <div class="content-block">
-                    <p class="lang-en">Microsoft Clarity answers the <strong>"WHY"</strong> — why users behave the way they do. It shows actual user sessions, where they click, scroll, and get frustrated.</p>
-                    <p class="lang-ur" style="display:none;">Microsoft Clarity <strong>"WHY"</strong> batata hai — users aise behave kyun karte hain. Ye actual user sessions dikhata hai, kahan click kiya, scroll kiya, aur frustrate hue.</p>
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">lightbulb</span>
+                        <span class="lang-en">Hospital Analogy</span>
+                        <span class="lang-ur" style="display:none;">Hospital Example</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en">Imagine a hospital where patients come but doctors don't know what's wrong. <strong>Without Crashlytics</strong> = Patient says "I feel bad" but no tests. <strong>With Crashlytics</strong> = Full blood report, X-ray, history — doctor knows exactly what's wrong!</p>
+                        <p class="lang-ur" style="display:none;">Socho hospital mein patient aaye lekin doctors ko pata nahi kya problem hai. <strong>Crashlytics ke bina</strong> = Patient bole "mujhe bura lag raha" lekin koi test nahi. <strong>Crashlytics ke saath</strong> = Poora blood report, X-ray, history — doctor ko exactly pata kya problem hai!</p>
+                    </div>
                 </div>
+
+                <h2 class="lang-en">How It Works</h2>
+                <h2 class="lang-ur" style="display:none;">Kaise Kaam Karta Hai</h2>
 
                 <div class="code-block">
-                    <div class="code-header">What Clarity Offers</div>
-<pre><code>Session Recordings  → Watch real user sessions like a video
-Heatmaps            → See where users click and scroll most
-Rage Clicks         → Detect frustrated clicking (user angry!)
-Dead Clicks         → Clicks on non-clickable elements
-Scroll Depth        → How far users scroll on each page
-JS Errors           → JavaScript errors users encounter</code></pre>
+                    <div class="code-header">Crash Flow</div>
+<pre><code>App Crash Happens
+       │
+       ▼
+┌─────────────────────────────┐
+│  Crashlytics SDK catches    │
+│  the error automatically    │
+└─────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│  Collects: Stack trace,     │
+│  Device info, Logs,         │
+│  Breadcrumbs                │
+└─────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│  Saves locally (offline)    │
+└─────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│  App opens next time →      │
+│  Sends report to Firebase   │
+└─────────────────────────────┘
+       │
+       ▼
+Firebase Dashboard shows crash ✓</code></pre>
                 </div>
 
-                <h2 class="lang-en">Why Use Both?</h2>
-                <h2 class="lang-ur" style="display:none;">Dono Kyun Use Karein?</h2>
+                <h2 class="lang-en">Types of Errors</h2>
+                <h2 class="lang-ur" style="display:none;">Error Ki Types</h2>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th class="lang-en">Description</th>
+                                <th class="lang-ur" style="display:none;">Description</th>
+                                <th class="lang-en">Example</th>
+                                <th class="lang-ur" style="display:none;">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Fatal (Crash)</strong></td>
+                                <td class="lang-en">App completely crashes</td>
+                                <td class="lang-ur" style="display:none;">App poora crash</td>
+                                <td class="lang-en">Null pointer, out of memory</td>
+                                <td class="lang-ur" style="display:none;">Null pointer, memory full</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Non-Fatal</strong></td>
+                                <td class="lang-en">Error caught, app continues</td>
+                                <td class="lang-ur" style="display:none;">Error catch, app chalta rahe</td>
+                                <td class="lang-en">API timeout, parse error</td>
+                                <td class="lang-ur" style="display:none;">API timeout, parse error</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ANR</strong></td>
+                                <td class="lang-en">App freezes/not responding</td>
+                                <td class="lang-ur" style="display:none;">App freeze/hang ho jaye</td>
+                                <td class="lang-en">Heavy work on main thread</td>
+                                <td class="lang-ur" style="display:none;">Main thread pe heavy kaam</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="lang-en">Key Features</h2>
+                <h2 class="lang-ur" style="display:none;">Key Features</h2>
+
+                <div class="code-block">
+                    <div class="code-header">Crashlytics Features</div>
+<pre><code>1. Automatic Crash Detection
+   → No extra code needed for basic crashes
+
+2. Intelligent Grouping
+   → Same crashes grouped together (not 1000 separate reports)
+
+3. Priority Ranking
+   → Shows most impactful crashes first (affecting most users)
+
+4. Real-time Alerts
+   → Email/Slack notification when new crash type appears
+
+5. Breadcrumb Logs
+   → See what user did: "Opened cart → Added item → Clicked checkout → CRASH"
+
+6. Custom Keys
+   → Add your own data: user type, subscription level, etc.
+
+7. User Identification
+   → Track which users are affected
+
+8. Offline Support
+   → Crashes saved locally, sent when online</code></pre>
+                </div>
+
+                <h2 class="lang-en">Dashboard Insights</h2>
+                <h2 class="lang-ur" style="display:none;">Dashboard Insights</h2>
 
                 <div class="content-block">
-                    <p class="lang-en">They complement each other perfectly. GA4 tells you "50% users dropped at checkout", Clarity shows you the actual recording — maybe the button was hidden, or form was confusing.</p>
-                    <p class="lang-ur" style="display:none;">Dono ek dusre ko perfectly complement karte hain. GA4 batata hai "50% users checkout pe drop hue", Clarity actual recording dikhata hai — shayad button hidden tha, ya form confusing tha.</p>
+                    <p class="lang-en">Firebase Console shows you:</p>
+                    <p class="lang-ur" style="display:none;">Firebase Console dikhata hai:</p>
+                    <ul>
+                        <li class="lang-en"><strong>Crash-free users %</strong> — Goal is 99%+ crash-free</li>
+                        <li class="lang-ur" style="display:none;"><strong>Crash-free users %</strong> — Goal hai 99%+ crash-free</li>
+                        <li class="lang-en"><strong>Top crashes</strong> — Which bugs affect most users</li>
+                        <li class="lang-ur" style="display:none;"><strong>Top crashes</strong> — Konse bugs zyada users ko affect</li>
+                        <li class="lang-en"><strong>Trends</strong> — Is stability improving or getting worse?</li>
+                        <li class="lang-ur" style="display:none;"><strong>Trends</strong> — Stability improve ho rahi ya worse?</li>
+                        <li class="lang-en"><strong>Version comparison</strong> — New version better or worse?</li>
+                        <li class="lang-ur" style="display:none;"><strong>Version comparison</strong> — Naya version better ya worse?</li>
+                        <li class="lang-en"><strong>Affected devices</strong> — Which phones have problems</li>
+                        <li class="lang-ur" style="display:none;"><strong>Affected devices</strong> — Konse phones mein problem</li>
+                    </ul>
+                </div>
+
+                <h2 class="lang-en">Why Use Crashlytics?</h2>
+                <h2 class="lang-ur" style="display:none;">Crashlytics Kyun Use Karein?</h2>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">tips_and_updates</span>
+                        <span class="lang-en">Benefits</span>
+                        <span class="lang-ur" style="display:none;">Fayde</span>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li class="lang-en"><strong>Find bugs before bad reviews</strong> — Fix issues before users complain on Play Store</li>
+                            <li class="lang-ur" style="display:none;"><strong>Bad reviews se pehle bugs dhundo</strong> — Play Store pe complaint se pehle fix karo</li>
+                            <li class="lang-en"><strong>Prioritize what matters</strong> — Fix crashes affecting 1000 users first, not 1</li>
+                            <li class="lang-ur" style="display:none;"><strong>Important cheezein pehle</strong> — 1000 users wala crash pehle fix karo, 1 user wala baad mein</li>
+                            <li class="lang-en"><strong>Debug faster</strong> — Full stack trace + logs = quick fix</li>
+                            <li class="lang-ur" style="display:none;"><strong>Jaldi debug</strong> — Full stack trace + logs = quick fix</li>
+                            <li class="lang-en"><strong>Free</strong> — No cost, unlimited crash reports</li>
+                            <li class="lang-ur" style="display:none;"><strong>Free</strong> — Koi cost nahi, unlimited crash reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="lang-en">Remember</h2>
+                <h2 class="lang-ur" style="display:none;">Yaad Rakho</h2>
+
+                <div class="content-block">
+                    <ul>
+                        <li class="lang-en">Crashlytics = App's health monitor</li>
+                        <li class="lang-ur" style="display:none;">Crashlytics = App ka health monitor</li>
+                        <li class="lang-en">Catches crashes automatically</li>
+                        <li class="lang-ur" style="display:none;">Crashes automatically catch karta hai</li>
+                        <li class="lang-en">Groups similar crashes together</li>
+                        <li class="lang-ur" style="display:none;">Similar crashes group karta hai</li>
+                        <li class="lang-en">Shows breadcrumbs (what user did before crash)</li>
+                        <li class="lang-ur" style="display:none;">Breadcrumbs dikhata hai (crash se pehle user ne kya kiya)</li>
+                        <li class="lang-en">Goal: 99%+ crash-free users</li>
+                        <li class="lang-ur" style="display:none;">Goal: 99%+ crash-free users</li>
+                        <li class="lang-en">Fix high-impact crashes first</li>
+                        <li class="lang-ur" style="display:none;">High-impact crashes pehle fix karo</li>
+                    </ul>
+                </div>
+
+                <!-- Microsoft Clarity -->
+                <h2 style="margin-top: 50px; padding-top: 30px; border-top: 2px solid var(--border-color);">Microsoft Clarity</h2>
+
+                <div class="content-block">
+                    <p class="lang-en"><strong>Microsoft Clarity</strong> is a free user behavior analytics tool that shows you HOW users interact with your app. While Crashlytics shows crashes, Clarity shows user struggles — where they click, where they get confused, where they give up.</p>
+                    <p class="lang-ur" style="display:none;"><strong>Microsoft Clarity</strong> ek free user behavior analytics tool hai jo dikhata hai users app ke saath KAISE interact karte hain. Jahan Crashlytics crashes dikhata hai, Clarity user struggles dikhata hai — kahan click kiya, kahan confuse hue, kahan give up kiya.</p>
+                </div>
+
+                <h3 class="lang-en">What Does It Offer?</h3>
+                <h3 class="lang-ur" style="display:none;">Ye Kya Deta Hai?</h3>
+
+                <div class="code-block">
+                    <div class="code-header">Clarity Features</div>
+<pre><code>Session Recordings  → Watch real user sessions like a video replay
+Heatmaps            → Visual map of where users click and scroll
+Rage Clicks         → Detect frustrated repeated clicking
+Dead Clicks         → Clicks on elements that don't respond
+Scroll Depth        → How far users scroll on each screen
+Quick-back          → User went to page and immediately returned
+JavaScript Errors   → Frontend errors users encounter</code></pre>
+                </div>
+
+                <h3 class="lang-en">Real Life Example</h3>
+                <h3 class="lang-ur" style="display:none;">Real Life Example</h3>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-icons">lightbulb</span>
+                        <span class="lang-en">CCTV Camera Analogy</span>
+                        <span class="lang-ur" style="display:none;">CCTV Camera Example</span>
+                    </div>
+                    <div class="info-card-content">
+                        <p class="lang-en">Clarity is like a CCTV camera in a shop. You can watch exactly what customers do — where they go, what they pick up, where they get confused. If many customers can't find the checkout counter, you know to add better signs!</p>
+                        <p class="lang-ur" style="display:none;">Clarity shop ka CCTV camera hai. Aap exactly dekh sakte ho customers kya karte hain — kahan jate hain, kya uthate hain, kahan confuse hote hain. Agar bohot customers checkout counter nahi dhundh pa rahe, to aapko better signs lagane chahiye!</p>
+                    </div>
+                </div>
+
+                <h3 class="lang-en">Key Features Explained</h3>
+                <h3 class="lang-ur" style="display:none;">Key Features Explained</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th class="lang-en">What It Shows</th>
+                                <th class="lang-ur" style="display:none;">Kya Dikhata Hai</th>
+                                <th class="lang-en">Why It Matters</th>
+                                <th class="lang-ur" style="display:none;">Kyun Important Hai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Session Recording</strong></td>
+                                <td class="lang-en">Video-like replay of user session</td>
+                                <td class="lang-ur" style="display:none;">User session ka video replay</td>
+                                <td class="lang-en">See exactly where users struggle</td>
+                                <td class="lang-ur" style="display:none;">Exactly dekho users kahan struggle</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Heatmaps</strong></td>
+                                <td class="lang-en">Red = hot (most clicks), Blue = cold</td>
+                                <td class="lang-ur" style="display:none;">Red = hot (zyada clicks), Blue = cold</td>
+                                <td class="lang-en">Find popular and ignored areas</td>
+                                <td class="lang-ur" style="display:none;">Popular aur ignored areas dhundo</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rage Clicks</strong></td>
+                                <td class="lang-en">User clicked same spot 3+ times fast</td>
+                                <td class="lang-ur" style="display:none;">User ne ek jagah 3+ baar jaldi click kiya</td>
+                                <td class="lang-en">User is frustrated — fix that area!</td>
+                                <td class="lang-ur" style="display:none;">User frustrated hai — wo area fix karo!</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dead Clicks</strong></td>
+                                <td class="lang-en">Click happened but nothing responded</td>
+                                <td class="lang-ur" style="display:none;">Click hua lekin kuch respond nahi kiya</td>
+                                <td class="lang-en">Users expect something clickable there</td>
+                                <td class="lang-ur" style="display:none;">Users wahan clickable expect karte hain</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Scroll Depth</strong></td>
+                                <td class="lang-en">How far users scroll down</td>
+                                <td class="lang-ur" style="display:none;">Users kitna neeche scroll karte hain</td>
+                                <td class="lang-en">Is important content below the fold?</td>
+                                <td class="lang-ur" style="display:none;">Important content neeche to nahi?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Comparison Section -->
+                <h2 style="margin-top: 50px; padding-top: 30px; border-top: 2px solid var(--border-color);" class="lang-en">Crashlytics vs Clarity</h2>
+                <h2 style="margin-top: 50px; padding-top: 30px; border-top: 2px solid var(--border-color); display:none;" class="lang-ur">Crashlytics vs Clarity</h2>
+
+                <div class="content-block">
+                    <p class="lang-en">Both tools complement each other perfectly. Use them TOGETHER for complete app visibility.</p>
+                    <p class="lang-ur" style="display:none;">Dono tools ek dusre ko perfectly complement karte hain. Complete app visibility ke liye DONO use karo.</p>
                 </div>
 
                 <div class="table-wrapper">
@@ -1644,50 +1922,64 @@ JS Errors           → JavaScript errors users encounter</code></pre>
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Google Analytics</th>
+                                <th>Firebase Crashlytics</th>
                                 <th>Microsoft Clarity</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td><strong>Focus</strong></td>
-                                <td class="lang-en">Numbers & Data</td>
-                                <td class="lang-en">Visual & Behavior</td>
-                                <td class="lang-ur" style="display:none;">Numbers & Data</td>
-                                <td class="lang-ur" style="display:none;">Visual & Behavior</td>
+                                <td class="lang-en">Technical crashes & errors</td>
+                                <td class="lang-en">User behavior & UX</td>
+                                <td class="lang-ur" style="display:none;">Technical crashes & errors</td>
+                                <td class="lang-ur" style="display:none;">User behavior & UX</td>
                             </tr>
                             <tr>
                                 <td><strong>Answers</strong></td>
-                                <td class="lang-en">What happened?</td>
-                                <td class="lang-en">Why it happened?</td>
-                                <td class="lang-ur" style="display:none;">Kya hua?</td>
-                                <td class="lang-ur" style="display:none;">Kyun hua?</td>
+                                <td class="lang-en">WHAT crashed?</td>
+                                <td class="lang-en">WHY users struggle?</td>
+                                <td class="lang-ur" style="display:none;">KYA crash hua?</td>
+                                <td class="lang-ur" style="display:none;">Users KYUN struggle?</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Shows</strong></td>
+                                <td class="lang-en">Stack traces, error logs</td>
+                                <td class="lang-en">Session recordings, heatmaps</td>
+                                <td class="lang-ur" style="display:none;">Stack traces, error logs</td>
+                                <td class="lang-ur" style="display:none;">Session recordings, heatmaps</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Detects</strong></td>
+                                <td class="lang-en">Crashes, ANR, non-fatal errors</td>
+                                <td class="lang-en">Rage clicks, dead clicks, confusion</td>
+                                <td class="lang-ur" style="display:none;">Crashes, ANR, non-fatal errors</td>
+                                <td class="lang-ur" style="display:none;">Rage clicks, dead clicks, confusion</td>
                             </tr>
                             <tr>
                                 <td><strong>Best For</strong></td>
-                                <td class="lang-en">Traffic, Conversions, Marketing</td>
-                                <td class="lang-en">UX, User Behavior, Debugging</td>
-                                <td class="lang-ur" style="display:none;">Traffic, Conversions, Marketing</td>
-                                <td class="lang-ur" style="display:none;">UX, User Behavior, Debugging</td>
+                                <td class="lang-en">Developers fixing bugs</td>
+                                <td class="lang-en">Designers improving UX</td>
+                                <td class="lang-ur" style="display:none;">Developers bugs fix karne ke liye</td>
+                                <td class="lang-ur" style="display:none;">Designers UX improve karne ke liye</td>
                             </tr>
                             <tr>
                                 <td><strong>Price</strong></td>
-                                <td>Free (GA4 360 paid)</td>
-                                <td>Completely Free</td>
+                                <td>Free</td>
+                                <td>Free</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card" style="margin-top: 24px;">
                     <div class="info-card-header">
                         <span class="material-icons">tips_and_updates</span>
-                        <span class="lang-en">Real Example</span>
-                        <span class="lang-ur" style="display:none;">Real Example</span>
+                        <span class="lang-en">Real Scenario</span>
+                        <span class="lang-ur" style="display:none;">Real Scenario</span>
                     </div>
                     <div class="info-card-content">
-                        <p class="lang-en"><strong>GA4 shows:</strong> "Cart abandonment is 60%"<br><strong>Clarity shows:</strong> Session recording reveals users can't find the checkout button because it's below the fold on mobile.</p>
-                        <p class="lang-ur" style="display:none;"><strong>GA4 dikhata hai:</strong> "Cart abandonment 60% hai"<br><strong>Clarity dikhata hai:</strong> Session recording mein pata chalta hai users checkout button nahi dhundh pa rahe kyunke mobile pe neeche hai.</p>
+                        <p class="lang-en"><strong>Crashlytics says:</strong> "Checkout screen has 5% crash rate"<br><strong>Clarity shows:</strong> Session recording reveals users tap the wrong button because it looks like the checkout button — UX issue, not just code bug!</p>
+                        <p class="lang-ur" style="display:none;"><strong>Crashlytics bolta hai:</strong> "Checkout screen pe 5% crash rate hai"<br><strong>Clarity dikhata hai:</strong> Session recording mein pata chalta hai users galat button tap kar rahe hain kyunki wo checkout button lagta hai — UX issue hai, sirf code bug nahi!</p>
                     </div>
                 </div>
             </section>
